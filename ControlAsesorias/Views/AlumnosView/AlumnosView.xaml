@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ControlAsesorias.Views.AlumnosView.AlumnosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlAsesorias.Views.AlumnosView" xmlns:fa="http://schemas.fontawesome.com/icons/" xmlns:viewmodels="clr-namespace:ControlAsesorias.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AlumnosViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="verAlumnos"
+             >
+    <DockPanel >
+        <Button DockPanel.Dock="Top" BorderThickness="0" Background="White"   
+                    Command="{Binding VerRegistrarAlumnoCommand}">
+            <StackPanel>
+                <fa:ImageAwesome Margin="0" VerticalAlignment="Center" 
+                                    Icon="Solid_User" Width="40"  ></fa:ImageAwesome>
+                <TextBlock   HorizontalAlignment="Center" Foreground="Black">Registrar</TextBlock>
+            </StackPanel>
+        </Button>
+        <ScrollViewer>
+
+            <ItemsControl ItemsSource="{Binding Alumnos}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate >
+                        <Border BorderBrush="#00B4D8" BorderThickness="1"  
+                                Padding="10" CornerRadius="5" 
+                                Background="WhiteSmoke" Margin="5">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold"  FontSize="20" Text="{Binding NumeroControl }"></TextBlock>
+                                <TextBlock Text="{Binding Nombre}"></TextBlock>
+                                <TextBlock  ><Run FontWeight="Bold" Text="{Binding Promedio}"></Run> 
+                                       <Run>  (</Run> 
+                                    <Run Text="{Binding Evaluacion}"></Run> 
+                                <Run>)</Run>
+                                </TextBlock>
+                                <TextBlock DockPanel.Dock="Right" Margin="5"> 
+                                <Hyperlink Command="{Binding Source={x:Reference verAlumnos}, 
+                                            Path=DataContext.VerEditarAlumnoCommand}" 
+                                           CommandParameter="{Binding Id}">Editar</Hyperlink> 
+                                <Hyperlink Command="{Binding Source={x:Reference verAlumnos}, 
+                                            Path=DataContext.VerEliminarAlumnoCommand}" 
+                                           CommandParameter="{Binding Id}">Eliminar</Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+
+
+</UserControl>
